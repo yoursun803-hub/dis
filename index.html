@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>選選看哪隻狗狗叼草莓</title>
+    <style>
+        :root {
+            --primary-color: #f8ad9d;
+            --bg-color: #fdf0d5;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei", sans-serif;
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 350px;
+        }
+
+        h1 { color: #666; font-size: 1.5rem; }
+
+        .hidden { display: none; }
+
+        /* 按鈕樣式 */
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        button:hover {
+            background-color: #f08080;
+            transform: scale(1.05);
+        }
+
+        /* 圖片容器 */
+        .image-container img {
+            max-width: 100%;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .back-btn {
+            background-color: #adc178;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="screen1" class="card">
+        <h1>🍓 請選擇一隻狗狗</h1>
+        <div class="btn-group">
+            <button onclick="showDog('拉布拉多', 'labrador.jpg')">拉布拉多</button>
+            <button onclick="showDog('查理士王小獵犬', 'cavalier.jpg')">查理士王小獵犬</button>
+            <button onclick="showDog('柴犬', 'shiba.jpg')">柴犬</button>
+        </div>
+    </div>
+
+    <div id="screen2" class="card hidden">
+        <h1 id="dogTitle">狗狗名稱</h1>
+        <div class="image-container">
+            <img id="dogImage" src="" alt="狗狗叼草莓插圖">
+        </div>
+        <p id="description">牠正開心地叼著草莓！</p>
+        <button class="back-btn" onclick="goBack()">回上一頁</button>
+    </div>
+
+    <script>
+        function showDog(name, imgSrc) {
+            // 隱藏第一個畫面，顯示第二個
+            document.getElementById('screen1').classList.add('hidden');
+            document.getElementById('screen2').classList.remove('hidden');
+
+            // 更新內容
+            document.getElementById('dogTitle').innerText = name + " 叼草莓";
+            
+            // 注意：這裡請更換為你實際的圖片路徑
+            // 如果暫時沒圖片，我這裡放一個占位圖示意
+            const dogImgElement = document.getElementById('dogImage');
+            dogImgElement.src = imgSrc; 
+            
+            // 處理圖片找不到的情況（可視需求刪除）
+            dogImgElement.onerror = function() {
+                this.src = "https://via.placeholder.com/300x300?text=" + encodeURIComponent(name + " 插圖");
+            };
+        }
+
+        function goBack() {
+            // 切換回第一個畫面
+            document.getElementById('screen2').classList.add('hidden');
+            document.getElementById('screen1').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
